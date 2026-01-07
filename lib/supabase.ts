@@ -3,8 +3,18 @@ import { createClient } from '@supabase/supabase-js';
 // Allow build to succeed without env vars, but will fail at runtime if not set
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder-service-key';
 
+// Client for client-side operations (public)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// Client for server-side operations (admin privileges)
+export const supabaseServiceRole = createClient(supabaseUrl, supabaseServiceKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+});
 
 // Database types
 export interface Lead {
@@ -91,5 +101,34 @@ export const getStats = async () => {
     totalRevenue: totalRevenue / 100, // Convert cents to dollars
     conversionRate: leads?.length ? ((purchases?.length || 0) / leads.length) * 100 : 0,
   };
+};
+
+// Storage helpers
+const BUCKET_NAME = process.env.NEXT_PUBLIC_SUPABASE_BUCKET || 'marriage-pdfs';
+const PDF_FREE_FILENAME = process.env.PDF_FREE_FILENAME || '10-ways-revitalize-marriage.pdf';
+const PDF_PREMIUM_FILENAME = process.env.PDF_PREMIUM_FILENAME || '25-ways-revitalize-marriage.pdf';
+
+export const getPDFFilename = (isPremium: boolean): string => {
+  return isPremium ? PDF_PREMIUM_FILENAME : PDF_FREE_FILENAME;
+};
+
+export const generateSignedPDFUrl = async (isPremium: boolean, expiresIn: number = 48 * 60 * 60) => {
+  const filename = getPDFFilename(isPremium);
+  
+  try {
+    const { data, error } = await supabaseServiceRole.storage
+      .from(BUCKET_NAME)
+      .createSignedUrl(filename, expiresIn);
+
+    if (error) {
+      console.error('Error generating signed URL:', error);
+      throw error;
+    }
+
+    return data.signedUrl;
+  } catch (error) {
+    console.error('Failed to generate signed PDF URL:', error);
+    throw new Error('Failed to generate download link');
+  }
 };
 

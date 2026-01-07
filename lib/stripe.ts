@@ -8,5 +8,6 @@ export const stripe = new Stripe(stripeKey, {
   typescript: true,
 });
 
-export const PRODUCT_PRICE = 999; // $9.99 in cents
+// Price ID from environment (Stripe Product Price ID)
+export const STRIPE_PRICE_ID_PREMIUM = process.env.STRIPE_PRICE_ID_PREMIUM || 'price_1Smx1jRdLjhk4cyD5tR3xqlR';
 

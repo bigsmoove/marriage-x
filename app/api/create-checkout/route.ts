@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe, PRODUCT_PRICE } from '@/lib/stripe';
+import { stripe, STRIPE_PRICE_ID_PREMIUM } from '@/lib/stripe';
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,23 +11,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (!STRIPE_PRICE_ID_PREMIUM || STRIPE_PRICE_ID_PREMIUM === 'price_1Smx1jRdLjhk4cyD5tR3xqlR') {
+      return NextResponse.json(
+        { error: 'Stripe Price ID not configured. Please set STRIPE_PRICE_ID_PREMIUM in environment variables.' },
+        { status: 500 }
+      );
+    }
+
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
-    // Create Stripe checkout session
+    // Create Stripe checkout session using Price ID
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: '25 Ways to Revitalize Your Marriage - Complete Guide',
-              description:
-                'The complete guide with 25 strategies, worksheets, action plans, and real-world examples.',
-              images: [`${appUrl}/og-image.jpg`],
-            },
-            unit_amount: PRODUCT_PRICE,
-          },
+          price: STRIPE_PRICE_ID_PREMIUM,
           quantity: 1,
         },
       ],
