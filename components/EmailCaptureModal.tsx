@@ -21,6 +21,7 @@ interface EmailCaptureModalProps {
 export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [submittedEmail, setSubmittedEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -43,7 +44,10 @@ export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps
         throw new Error(data.error || 'Something went wrong');
       }
 
+      // Store the email before resetting form
+      setSubmittedEmail(email);
       setSuccess(true);
+      
       // Reset form
       setName('');
       setEmail('');
@@ -52,6 +56,7 @@ export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps
       setTimeout(() => {
         onOpenChange(false);
         setSuccess(false);
+        setSubmittedEmail('');
       }, 3000);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
@@ -72,7 +77,7 @@ export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps
             </div>
             <DialogTitle className="mb-2 text-2xl">Check Your Email!</DialogTitle>
             <DialogDescription className="text-base">
-              We've sent your free guide to <strong>{email}</strong>. 
+              We've sent your free guide to <strong>{submittedEmail}</strong>. 
               Check your inbox (and spam folder) for the download link.
             </DialogDescription>
           </div>

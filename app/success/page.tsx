@@ -65,7 +65,7 @@ function SuccessContent() {
             </h3>
             <p className="mb-4 text-sm text-gray-600">
               Check your spam folder. If you still don't see it after 10 minutes, 
-              please contact us at support@themarriagecorner.com with your order details.
+              please contact us at themarriagecorneronline@gmail.com with your order details.
             </p>
             {sessionId && (
               <p className="text-xs text-gray-500">

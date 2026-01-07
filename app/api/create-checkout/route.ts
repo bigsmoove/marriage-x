@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!STRIPE_PRICE_ID_PREMIUM || STRIPE_PRICE_ID_PREMIUM === 'price_1Smx1jRdLjhk4cyD5tR3xqlR') {
+    if (!STRIPE_PRICE_ID_PREMIUM) {
       return NextResponse.json(
         { error: 'Stripe Price ID not configured. Please set STRIPE_PRICE_ID_PREMIUM in environment variables.' },
         { status: 500 }
