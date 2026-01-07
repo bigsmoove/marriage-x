@@ -1,7 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Heart } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Check } from 'lucide-react';
 
 interface HeroSectionProps {
   onGetFreeGuide: () => void;
@@ -10,90 +11,107 @@ interface HeroSectionProps {
 
 export const HeroSection = ({ onGetFreeGuide, onBuyPremium }: HeroSectionProps) => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-red-50 py-20 lg:py-32">
+    <section className="w-full bg-background py-16 lg:py-24">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
-          {/* Heart Icon */}
-          <div className="mb-6 flex justify-center">
-            <div className="rounded-full bg-gradient-to-r from-purple-500 to-pink-500 p-4">
-              <Heart className="h-12 w-12 text-white" fill="white" />
-            </div>
-          </div>
+          {/* Trust Badge */}
+          <Badge variant="secondary" className="mb-8 px-4 py-1.5 text-sm font-normal">
+            Trusted by 10,000+ couples
+          </Badge>
 
           {/* Headline */}
-          <h1 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+          <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
             Revitalize Your Marriage
-            <span className="block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+            <span className="mt-2 block text-primary">
               Starting Today
             </span>
           </h1>
 
           {/* Subheading */}
-          <p className="mb-8 text-xl text-gray-600 lg:text-2xl">
+          <p className="mb-10 text-lg text-muted-foreground sm:text-xl lg:text-2xl">
             Discover proven strategies to strengthen your connection, reignite the spark, 
             and build the marriage you've always dreamed of.
           </p>
 
           {/* Trust Indicators */}
-          <div className="mb-10 flex flex-wrap items-center justify-center gap-4 text-sm text-gray-600">
+          <div className="mb-10 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-purple-600">✓</span>
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10">
+                <Check className="h-3.5 w-3.5 text-primary" />
+              </div>
               <span>Practical & Actionable</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-purple-600">✓</span>
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10">
+                <Check className="h-3.5 w-3.5 text-primary" />
+              </div>
               <span>Easy to Implement</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-purple-600">✓</span>
+              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10">
+                <Check className="h-3.5 w-3.5 text-primary" />
+              </div>
               <span>Real Results</span>
             </div>
           </div>
 
           {/* CTAs */}
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Button
               onClick={onGetFreeGuide}
               size="lg"
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-lg font-semibold hover:from-purple-700 hover:to-pink-700 sm:w-auto"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto"
             >
+              <svg
+                className="mr-2 h-4 w-4"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M12 4v16m8-8H4" />
+              </svg>
               Get Free Guide (10 Tips)
             </Button>
             <Button
               onClick={onBuyPremium}
               size="lg"
               variant="outline"
-              className="w-full border-2 border-purple-600 text-lg font-semibold text-purple-600 hover:bg-purple-50 sm:w-auto"
+              className="w-full border-2 hover:bg-muted sm:w-auto"
             >
               Buy Full Version ($9.99)
+              <svg
+                className="ml-2 h-4 w-4"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M9 5l7 7-7 7" />
+              </svg>
             </Button>
           </div>
 
-          {/* Social Proof Badge */}
-          <div className="mt-10 flex justify-center">
-            <div className="rounded-full bg-white px-6 py-3 shadow-lg">
-              <p className="text-sm text-gray-600">
-                Follow us on X:{' '}
-                <a
-                  href="https://x.com/Marriage_Corner"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-semibold text-purple-600 hover:underline"
-                >
-                  @Marriage_Corner
-                </a>
-              </p>
-            </div>
+          {/* Social Proof */}
+          <div className="mt-10">
+            <p className="text-sm text-muted-foreground">
+              Follow us on X:{' '}
+              <a
+                href="https://x.com/Marriage_Corner"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-primary hover:underline"
+              >
+                @Marriage_Corner
+              </a>
+            </p>
           </div>
         </div>
-      </div>
-
-      {/* Decorative elements */}
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-full overflow-hidden">
-        <div className="absolute -left-4 top-20 h-72 w-72 rounded-full bg-purple-300 opacity-20 blur-3xl"></div>
-        <div className="absolute -right-4 top-40 h-72 w-72 rounded-full bg-pink-300 opacity-20 blur-3xl"></div>
       </div>
     </section>
   );
 };
-

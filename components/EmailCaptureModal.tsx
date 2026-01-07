@@ -11,7 +11,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Download } from 'lucide-react';
 
 interface EmailCaptureModalProps {
   open: boolean;
@@ -65,7 +65,11 @@ export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps
       <DialogContent className="sm:max-w-md">
         {success ? (
           <div className="py-8 text-center">
-            <div className="mb-4 text-6xl">✉️</div>
+            <div className="mb-4 flex justify-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                <Download className="h-8 w-8 text-primary" />
+              </div>
+            </div>
             <DialogTitle className="mb-2 text-2xl">Check Your Email!</DialogTitle>
             <DialogDescription className="text-base">
               We've sent your free guide to <strong>{email}</strong>. 
@@ -110,14 +114,14 @@ export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps
               </div>
 
               {error && (
-                <div className="rounded-md bg-red-50 p-3 text-sm text-red-800">
+                <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
                   {error}
                 </div>
               )}
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 disabled={loading}
               >
                 {loading ? (
@@ -130,7 +134,7 @@ export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps
                 )}
               </Button>
 
-              <p className="text-center text-xs text-gray-500">
+              <p className="text-center text-xs text-muted-foreground">
                 We respect your privacy. Unsubscribe at any time.
               </p>
             </form>
@@ -140,4 +144,3 @@ export const EmailCaptureModal = ({ open, onOpenChange }: EmailCaptureModalProps
     </Dialog>
   );
 };
-
