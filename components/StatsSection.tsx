@@ -4,7 +4,7 @@ import { Trophy, BookOpen, Target } from 'lucide-react';
 
 export const StatsSection = () => {
   return (
-    <section className="w-full bg-background py-16">
+    <section className="w-full bg-background py-12">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl">

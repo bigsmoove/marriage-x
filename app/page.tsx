@@ -53,7 +53,7 @@ export default function Home() {
       <StatsSection />
 
       {/* Final CTA Section */}
-      <section className="w-full bg-primary py-16 text-primary-foreground lg:py-20">
+      <section className="w-full bg-primary py-12 text-primary-foreground lg:py-16">
         <div className="container mx-auto px-4 text-center">
           <div className="mb-6 flex justify-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-foreground/10">
